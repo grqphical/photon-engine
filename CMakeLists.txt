@@ -20,38 +20,62 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
         Debug Release RelWithDebInfo MinSizeRel)
 endif()
 
-# Executable
-add_executable(${PROJECT_NAME}
-    src/main.cpp
+# raytracing library
+add_library(libraytracer STATIC
     src/image.cpp
     src/image_writer/ppm_writer.cpp
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_include_directories(libraytracer PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+target_compile_features(libraytracer PUBLIC cxx_std_23)
+
+# Executable
+add_executable(raytracer
+    src/main.cpp
+)
+
+target_include_directories(raytracer PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+target_link_libraries(raytracer PUBLIC libraytracer)
 
 # Warnings
 if(MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
+    target_compile_options(libraytracer PRIVATE /W4)
+    target_compile_options(raytracer PRIVATE /W4)
 else()
-    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(libraytracer PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(raytracer PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE
+target_compile_definitions(raytracer PRIVATE
+    $<$<CONFIG:Debug>:DEBUG>
+)
+target_compile_definitions(libraytracer PRIVATE
     $<$<CONFIG:Debug>:DEBUG>
 )
 
 if(NOT MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE
+    target_compile_options(raytracer PRIVATE
+        $<$<CONFIG:Debug>:-g3 -O0>
+    )
+    target_compile_options(libraytracer PRIVATE
         $<$<CONFIG:Debug>:-g3 -O0>
     )
 
     if(ENABLE_SANITIZERS)
-        target_compile_options(${PROJECT_NAME} PRIVATE
+        target_compile_options(raytracer PRIVATE
             $<$<CONFIG:Debug>:-fsanitize=address,undefined -fno-omit-frame-pointer>
         )
-        target_link_options(${PROJECT_NAME} PRIVATE
+        target_link_options(raytracer PRIVATE
+            $<$<CONFIG:Debug>:-fsanitize=address,undefined>
+        )
+        target_compile_options(libraytracer PRIVATE
+            $<$<CONFIG:Debug>:-fsanitize=address,undefined -fno-omit-frame-pointer>
+        )
+        target_link_options(libraytracer PRIVATE
             $<$<CONFIG:Debug>:-fsanitize=address,undefined>
         )
     endif()
