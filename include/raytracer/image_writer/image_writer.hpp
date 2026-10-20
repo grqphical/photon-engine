@@ -9,7 +9,6 @@ namespace raytracer::image_writer {
 class ImageWriter {
 public:
   // Writes a vector of image data to the given output_file
-  virtual void SaveImage(raytracer::Image &image, uint32_t width,
-                         uint32_t height, std::string output_file) = 0;
+  virtual void SaveImage(raytracer::Image &image, std::string output_file) = 0;
 };
 } // namespace raytracer::image_writer

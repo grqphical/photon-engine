@@ -18,3 +18,7 @@ void raytracer::Image::SetPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g,
 
   data_[idx] = colour;
 }
+
+uint32_t raytracer::Image::Width() const { return width_; }
+
+uint32_t raytracer::Image::Height() const { return height_; }
