@@ -23,6 +23,8 @@ endif()
 # Executable
 add_executable(${PROJECT_NAME}
     src/main.cpp
+    src/image.cpp
+    src/image_writer/ppm_writer.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
