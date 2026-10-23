@@ -47,7 +47,7 @@ TEST(Vector3Tests, TestVector3DivideEqual) {
   raytracer::Vector3 vec1(5.0, 49.0, 10.0);
   raytracer::Vector3 vec2(2.0, 7.0, 10.0);
 
-  vec1 *= vec2;
+  vec1 /= vec2;
 
   ASSERT_EQ(vec1, expected);
 }

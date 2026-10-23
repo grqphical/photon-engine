@@ -12,10 +12,10 @@ public:
   double Z() const;
 
   Vector3 operator-() const;
-  Vector3 operator+=(const Vector3 &v);
-  Vector3 operator-=(const Vector3 &v);
-  Vector3 operator*=(const Vector3 &v);
-  Vector3 operator/=(const Vector3 &v);
+  Vector3 &operator+=(const Vector3 &v);
+  Vector3 &operator-=(const Vector3 &v);
+  Vector3 &operator*=(const Vector3 &v);
+  Vector3 &operator/=(const Vector3 &v);
 
   double Length() const;
   double LengthSquared() const;
