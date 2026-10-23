@@ -20,9 +20,14 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
         Debug Release RelWithDebInfo MinSizeRel)
 endif()
 
+# Shared warnings/debug/sanitizer settings, applied only to our own targets
+# (so they don't leak into GoogleTest)
+add_library(project_options INTERFACE)
+
 # raytracing library
-add_library(libraytracer STATIC
+add_library(libraytracer
     src/image.cpp
+    src/vector3.cpp
     src/image_writer/ppm_writer.cpp
 )
 
@@ -30,6 +35,7 @@ target_include_directories(libraytracer PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 target_compile_features(libraytracer PUBLIC cxx_std_23)
+target_link_libraries(libraytracer PRIVATE project_options)
 
 # Executable
 add_executable(raytracer
@@ -39,7 +45,7 @@ add_executable(raytracer
 target_include_directories(raytracer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_link_libraries(raytracer PUBLIC libraytracer)
+target_link_libraries(raytracer PUBLIC libraytracer project_options)
 
 # Warnings
 if(MSVC)
@@ -79,4 +85,9 @@ if(NOT MSVC)
             $<$<CONFIG:Debug>:-fsanitize=address,undefined>
         )
     endif()
+endif()
+
+include(CTest)  # defines BUILD_TESTING (ON by default) and calls enable_testing()
+if(BUILD_TESTING)
+    add_subdirectory(tests)
 endif()
