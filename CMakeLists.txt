@@ -28,6 +28,7 @@ add_library(project_options INTERFACE)
 add_library(libraytracer
     src/image.cpp
     src/vector3.cpp
+    src/ray.cpp
     src/image_writer/ppm_writer.cpp
 )
 
