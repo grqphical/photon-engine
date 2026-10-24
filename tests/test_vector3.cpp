@@ -79,3 +79,18 @@ TEST(Vector3Tests, TestVector3Unit) {
   // this is to mitigate precision errors
   ASSERT_LT(1 - unit.Length(), expected_magnitude_delta);
 }
+
+TEST(Vector3Tests, TestVector3Equality) {
+  raytracer::Vector3 vec1(1.0, 5.0, -6.0);
+  raytracer::Vector3 vec2(1.0, 5.0, -6.0);
+  raytracer::Vector3 vec3(2.0, 5.0, -6.0);
+  raytracer::Vector3 vec4(2.0, -678.0, -6.0);
+
+  ASSERT_EQ(vec1, vec2);
+  ASSERT_EQ(vec2, vec1);
+  ASSERT_NE(vec1, vec3);
+  ASSERT_NE(vec2, vec3);
+  ASSERT_NE(vec1, vec4);
+  ASSERT_NE(vec2, vec4);
+  ASSERT_NE(vec3, vec4);
+}
