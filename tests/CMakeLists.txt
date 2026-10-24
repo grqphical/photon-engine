@@ -17,6 +17,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(unit_tests
     test_vector3.cpp
+    test_ray.cpp
 )
 
 target_link_libraries(unit_tests PRIVATE
