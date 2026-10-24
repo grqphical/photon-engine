@@ -10,3 +10,6 @@ cmake -S . -B build
 cmake --build build
 ./build/raytracer
 ```
+
+## License
+This project is licensed under the [Apache 2.0 License](LICENSE)
