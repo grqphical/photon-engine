@@ -35,6 +35,7 @@ bool operator==(const Vector3 &a, const Vector3 &b);
 Vector3 operator+(const Vector3 &a, const Vector3 &b);
 Vector3 operator-(const Vector3 &a, const Vector3 &b);
 Vector3 operator/(const Vector3 &a, const Vector3 &b);
+Vector3 operator/(const Vector3 &a, double b);
 Vector3 operator*(const Vector3 &a, const Vector3 &b);
 Vector3 operator*(double a, const Vector3 &b);
 Vector3 operator*(const Vector3 &a, double b);

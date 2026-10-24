@@ -1,4 +1,5 @@
 #include "raytracer/vector3.hpp"
+#include <cmath>
 #include <gtest/gtest.h>
 
 TEST(Vector3Tests, TestVector3Negation) {
@@ -50,4 +51,31 @@ TEST(Vector3Tests, TestVector3DivideEqual) {
   vec1 /= vec2;
 
   ASSERT_EQ(vec1, expected);
+}
+
+TEST(Vector3Tests, TestVector3LengthSquared) {
+  double expected = 50.0;
+
+  raytracer::Vector3 vec(3.0, 4.0, 5.0);
+
+  ASSERT_EQ(vec.LengthSquared(), expected);
+}
+
+TEST(Vector3Tests, TestVector3Length) {
+  double expected = std::sqrt(50.0);
+
+  raytracer::Vector3 vec(3.0, 4.0, 5.0);
+
+  ASSERT_EQ(vec.Length(), expected);
+}
+
+TEST(Vector3Tests, TestVector3Unit) {
+  raytracer::Vector3 expected_vec(0.207514, 0.857726, 0.470366);
+  double expected_magnitude_delta = 0.0001;
+
+  raytracer::Vector3 vec(15, 62, 34);
+
+  raytracer::Vector3 unit = vec.Unit();
+  // this is to mitigate precision errors
+  ASSERT_LT(1 - unit.Length(), expected_magnitude_delta);
 }
