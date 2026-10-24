@@ -126,3 +126,19 @@ TEST(Vector3Tests, TestVector3Division) {
 
   ASSERT_EQ(vec1 / vec2, expected);
 }
+
+TEST(Vector3Tests, TestVector3DotProduct) {
+  double expected = -154.0;
+  raytracer::Vector3 vec1(5.0, -8.0, 17.0);
+  raytracer::Vector3 vec2(4.0, 9.0, -6.0);
+
+  ASSERT_EQ(vec1 & vec2, expected);
+}
+
+TEST(Vector3Tests, TestVector3CrossProduct) {
+  raytracer::Vector3 expected(327.0, -1047.0, -153.0);
+  raytracer::Vector3 vec1(15.0, 6.0, -9.0);
+  raytracer::Vector3 vec2(8.0, -7.0, 65.0);
+
+  ASSERT_EQ(vec1 ^ vec2, expected);
+}

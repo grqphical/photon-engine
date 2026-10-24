@@ -20,9 +20,6 @@ public:
   double Length() const;
   double LengthSquared() const;
 
-  // applies the dot product of this Vector and a to this Vector
-  void DotProduct(Vector3 &a);
-  void CrossProduct(Vector3 &a);
   Vector3 Unit() const;
 
 private:
@@ -40,5 +37,12 @@ Vector3 operator*(const Vector3 &a, const Vector3 &b);
 Vector3 operator*(double a, const Vector3 &b);
 Vector3 operator*(const Vector3 &a, double b);
 
+// use the "&" operator for dot product
+double operator&(const Vector3 &a, const Vector3 &b);
+
+// use the "^" operator for cross product
+Vector3 operator^(const Vector3 &a, const Vector3 &b);
+
 using Point3 = Vector3;
+
 } // namespace raytracer
