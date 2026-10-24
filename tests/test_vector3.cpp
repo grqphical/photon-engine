@@ -94,3 +94,35 @@ TEST(Vector3Tests, TestVector3Equality) {
   ASSERT_NE(vec2, vec4);
   ASSERT_NE(vec3, vec4);
 }
+
+TEST(Vector3Tests, TestVector3Addition) {
+  raytracer::Vector3 expected(1.0, 5.0, -6.0);
+  raytracer::Vector3 vec1(1.0, 3.0, -3.0);
+  raytracer::Vector3 vec2(0.0, 2.0, -3.0);
+
+  ASSERT_EQ(vec1 + vec2, expected);
+}
+
+TEST(Vector3Tests, TestVector3Subtraction) {
+  raytracer::Vector3 expected(-4.0, 6.0, 0.0);
+  raytracer::Vector3 vec1(1.0, 8.0, -3.0);
+  raytracer::Vector3 vec2(5.0, 2.0, -3.0);
+
+  ASSERT_EQ(vec1 - vec2, expected);
+}
+
+TEST(Vector3Tests, TestVector3Multiplication) {
+  raytracer::Vector3 expected(1.0, 8.0, 6.0);
+  raytracer::Vector3 vec1(1.0, 4.0, -3.0);
+  raytracer::Vector3 vec2(1.0, 2.0, -2.0);
+
+  ASSERT_EQ(vec1 * vec2, expected);
+}
+
+TEST(Vector3Tests, TestVector3Division) {
+  raytracer::Vector3 expected(1.0, 2.0, 3.5);
+  raytracer::Vector3 vec1(1.0, 4.0, -7.0);
+  raytracer::Vector3 vec2(1.0, 2.0, -2.0);
+
+  ASSERT_EQ(vec1 / vec2, expected);
+}

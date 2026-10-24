@@ -48,6 +48,18 @@ Vector3 &Vector3::operator/=(const Vector3 &v) {
   return *this;
 }
 
+Vector3 operator+(const Vector3 &a, const Vector3 &b) {
+  return Vector3(a.X() + b.X(), a.Y() + b.Y(), a.Z() + b.Z());
+}
+
+Vector3 operator-(const Vector3 &a, const Vector3 &b) {
+  return Vector3(a.X() - b.X(), a.Y() - b.Y(), a.Z() - b.Z());
+}
+
+Vector3 operator*(const Vector3 &a, const Vector3 &b) {
+  return Vector3(a.X() * b.X(), a.Y() * b.Y(), a.Z() * b.Z());
+}
+
 Vector3 operator*(const Vector3 &a, double b) {
   return Vector3(a.X() * b, a.Y() * b, a.Z() * b);
 }
@@ -55,6 +67,10 @@ Vector3 operator*(const Vector3 &a, double b) {
 Vector3 operator*(double a, const Vector3 &b) { return b * a; }
 
 Vector3 operator/(const Vector3 &a, double b) { return (1 / b) * a; }
+
+Vector3 operator/(const Vector3 &a, const Vector3 &b) {
+  return Vector3(a.X() / b.X(), a.Y() / b.Y(), a.Z() / b.Z());
+}
 
 double Vector3::LengthSquared() const { return x * x + y * y + z * z; }
 
