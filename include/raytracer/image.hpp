@@ -1,4 +1,5 @@
 #pragma once
+#include "raytracer/vector3.hpp"
 #include <cstdint>
 #include <vector>
 
@@ -23,6 +24,7 @@ public:
   const_iterator CEnd() const { return data_.cend(); }
 
   void SetPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b);
+  void SetPixel(uint32_t x, uint32_t y, raytracer::Vector3 colour);
 
   uint32_t Width() const;
   uint32_t Height() const;

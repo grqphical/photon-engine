@@ -19,6 +19,19 @@ void raytracer::Image::SetPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g,
   data_[idx] = colour;
 }
 
+void raytracer::Image::SetPixel(uint32_t x, uint32_t y,
+                                raytracer::Vector3 colour) {
+  if (x >= width_ || y >= height_)
+    throw std::invalid_argument("x and y must be smaller than the image");
+
+  uint64_t idx = static_cast<uint64_t>(y) * width_ + x;
+  const uint32_t colour_packed = (static_cast<uint32_t>(colour.X()) << 24) |
+                                 (static_cast<uint32_t>(colour.Y()) << 16) |
+                                 (static_cast<uint32_t>(colour.Z()) << 8);
+
+  data_[idx] = colour_packed;
+}
+
 uint32_t raytracer::Image::Width() const { return width_; }
 
 uint32_t raytracer::Image::Height() const { return height_; }
