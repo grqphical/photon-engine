@@ -6,7 +6,7 @@
 namespace raytracer::objects {
 class Object {
 public:
-  virtual bool RayHit(const Ray &r) = 0;
-  virtual Vector3 GetSurfaceColour() = 0;
+  virtual bool RayHit(const Ray &r) const = 0;
+  virtual Vector3 GetSurfaceColour() const = 0;
 };
 } // namespace raytracer::objects
