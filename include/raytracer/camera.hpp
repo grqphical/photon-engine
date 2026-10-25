@@ -5,6 +5,7 @@ namespace raytracer {
 
 class Camera {
 public:
+  Camera() {};
   Camera(double focalLength, double viewportHeight,
          raytracer::Vector3 cameraCenter, int imageWidth, int imageHeight);
 
