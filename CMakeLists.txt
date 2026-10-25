@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(Raytracer
+project(PhotonEngine
     VERSION 1.0.0
     DESCRIPTION "A raytracing engine"
     LANGUAGES CXX
@@ -25,7 +25,7 @@ endif()
 add_library(project_options INTERFACE)
 
 # raytracing library
-add_library(libraytracer
+add_library(libphoton
     src/image.cpp
     src/vector3.cpp
     src/ray.cpp
@@ -35,57 +35,57 @@ add_library(libraytracer
     src/objects/sphere.cpp
 )
 
-target_include_directories(libraytracer PUBLIC
+target_include_directories(libphoton PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_compile_features(libraytracer PUBLIC cxx_std_23)
-target_link_libraries(libraytracer PRIVATE project_options)
+target_compile_features(libphoton PUBLIC cxx_std_23)
+target_link_libraries(libphoton PRIVATE project_options)
 
 # Executable
-add_executable(raytracer
+add_executable(photon
     src/main.cpp
 )
 
-target_include_directories(raytracer PRIVATE
+target_include_directories(photon PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_link_libraries(raytracer PUBLIC libraytracer project_options)
+target_link_libraries(photon PUBLIC libphoton project_options)
 
 # Warnings
 if(MSVC)
-    target_compile_options(libraytracer PRIVATE /W4)
-    target_compile_options(raytracer PRIVATE /W4)
+    target_compile_options(libphoton PRIVATE /W4)
+    target_compile_options(photon PRIVATE /W4)
 else()
-    target_compile_options(libraytracer PRIVATE -Wall -Wextra -Wpedantic)
-    target_compile_options(raytracer PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(libphoton PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(photon PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
-target_compile_definitions(raytracer PRIVATE
+target_compile_definitions(photon PRIVATE
     $<$<CONFIG:Debug>:DEBUG>
 )
-target_compile_definitions(libraytracer PRIVATE
+target_compile_definitions(libphoton PRIVATE
     $<$<CONFIG:Debug>:DEBUG>
 )
 
 if(NOT MSVC)
-    target_compile_options(raytracer PRIVATE
+    target_compile_options(photon PRIVATE
         $<$<CONFIG:Debug>:-g3 -O0>
     )
-    target_compile_options(libraytracer PRIVATE
+    target_compile_options(libphoton PRIVATE
         $<$<CONFIG:Debug>:-g3 -O0>
     )
 
     if(ENABLE_SANITIZERS)
-        target_compile_options(raytracer PRIVATE
+        target_compile_options(photon PRIVATE
             $<$<CONFIG:Debug>:-fsanitize=address,undefined -fno-omit-frame-pointer>
         )
-        target_link_options(raytracer PRIVATE
+        target_link_options(photon PRIVATE
             $<$<CONFIG:Debug>:-fsanitize=address,undefined>
         )
-        target_compile_options(libraytracer PRIVATE
+        target_compile_options(libphoton PRIVATE
             $<$<CONFIG:Debug>:-fsanitize=address,undefined -fno-omit-frame-pointer>
         )
-        target_link_options(libraytracer PRIVATE
+        target_link_options(libphoton PRIVATE
             $<$<CONFIG:Debug>:-fsanitize=address,undefined>
         )
     endif()

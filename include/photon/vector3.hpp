@@ -1,7 +1,7 @@
 #pragma once
 #include <ostream>
 
-namespace raytracer {
+namespace photon {
 class Vector3 {
 public:
   Vector3();
@@ -45,4 +45,4 @@ Vector3 operator^(const Vector3 &a, const Vector3 &b);
 
 using Point3 = Vector3;
 
-} // namespace raytracer
+} // namespace photon

@@ -21,7 +21,7 @@ add_executable(unit_tests
 )
 
 target_link_libraries(unit_tests PRIVATE
-    libraytracer
+    libphoton
     project_options
     GTest::gmock_main
 )

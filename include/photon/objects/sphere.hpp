@@ -1,10 +1,10 @@
 #pragma once
 
-#include "raytracer/objects/object.hpp"
-#include "raytracer/ray.hpp"
-#include "raytracer/vector3.hpp"
+#include "photon/objects/object.hpp"
+#include "photon/ray.hpp"
+#include "photon/vector3.hpp"
 
-namespace raytracer::objects {
+namespace photon::objects {
 class Sphere : public Object {
 public:
   Sphere(Vector3 center, double radius, Vector3 colour);
@@ -16,4 +16,4 @@ private:
   Vector3 center, colour;
   double radius;
 };
-} // namespace raytracer::objects
+} // namespace photon::objects

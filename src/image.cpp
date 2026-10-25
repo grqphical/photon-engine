@@ -1,13 +1,13 @@
-#include "raytracer/image.hpp"
+#include "photon/image.hpp"
 #include <stdexcept>
 
-raytracer::Image::Image(uint32_t width, uint32_t height)
+photon::Image::Image(uint32_t width, uint32_t height)
     : data_(width * height, 0), width_(width), height_(height) {}
 
-raytracer::Image::~Image() {}
+photon::Image::~Image() {}
 
-void raytracer::Image::SetPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g,
-                                uint8_t b) {
+void photon::Image::SetPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g,
+                             uint8_t b) {
   if (x >= width_ || y >= height_)
     throw std::invalid_argument("x and y must be smaller than the image");
 
@@ -19,8 +19,7 @@ void raytracer::Image::SetPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g,
   data_[idx] = colour;
 }
 
-void raytracer::Image::SetPixel(uint32_t x, uint32_t y,
-                                raytracer::Vector3 colour) {
+void photon::Image::SetPixel(uint32_t x, uint32_t y, photon::Vector3 colour) {
   if (x >= width_ || y >= height_)
     throw std::invalid_argument("x and y must be smaller than the image");
 
@@ -33,6 +32,6 @@ void raytracer::Image::SetPixel(uint32_t x, uint32_t y,
   data_[idx] = colour_packed;
 }
 
-uint32_t raytracer::Image::Width() const { return width_; }
+uint32_t photon::Image::Width() const { return width_; }
 
-uint32_t raytracer::Image::Height() const { return height_; }
+uint32_t photon::Image::Height() const { return height_; }

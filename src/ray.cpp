@@ -1,6 +1,6 @@
-#include "raytracer/ray.hpp"
+#include "photon/ray.hpp"
 
-namespace raytracer {
+namespace photon {
 
 Ray::Ray() {}
 Ray::Ray(const Vector3 &origin, const Vector3 &direction)
@@ -12,4 +12,4 @@ const Vector3 &Ray::Direction() const { return direction; }
 
 Vector3 Ray::At(double t) { return origin + t * direction; }
 
-} // namespace raytracer
+} // namespace photon

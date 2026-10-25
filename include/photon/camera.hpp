@@ -1,13 +1,13 @@
 #pragma once
 
-#include "raytracer/vector3.hpp"
-namespace raytracer {
+#include "photon/vector3.hpp"
+namespace photon {
 
 class Camera {
 public:
   Camera() {};
   Camera(double focalLength, double viewportHeight,
-         raytracer::Vector3 cameraCenter, int imageWidth, int imageHeight);
+         photon::Vector3 cameraCenter, int imageWidth, int imageHeight);
 
   const Vector3 &Position() const;
   const Vector3 &TopLeftPixel() const;
@@ -23,4 +23,4 @@ private:
   Vector3 viewportUpperLeft, pixel00Location;
 };
 
-} // namespace raytracer
+} // namespace photon

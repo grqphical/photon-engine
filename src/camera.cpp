@@ -1,10 +1,10 @@
-#include "raytracer/camera.hpp"
-#include "raytracer/vector3.hpp"
+#include "photon/camera.hpp"
+#include "photon/vector3.hpp"
 
-namespace raytracer {
+namespace photon {
 
 Camera::Camera(double focalLength, double viewportHeight,
-               raytracer::Vector3 cameraCenter, int imageWidth, int imageHeight)
+               photon::Vector3 cameraCenter, int imageWidth, int imageHeight)
     : viewportHeight(viewportHeight), cameraCenter(cameraCenter) {
 
   viewportWidth =
@@ -26,4 +26,4 @@ const Vector3 &Camera::TopLeftPixel() const { return pixel00Location; }
 const Vector3 &Camera::PixelDeltaU() const { return pixelDeltaU; }
 const Vector3 &Camera::PixelDeltaV() const { return pixelDeltaV; }
 
-} // namespace raytracer
+} // namespace photon

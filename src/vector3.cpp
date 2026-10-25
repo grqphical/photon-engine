@@ -1,17 +1,17 @@
-#include "raytracer/vector3.hpp"
+#include "photon/vector3.hpp"
 #include <cmath>
 
-namespace raytracer {
+namespace photon {
 
 Vector3::Vector3() : x(0.0), y(0.0), z(0.0) {}
 
 Vector3::Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
 
-bool operator==(const raytracer::Vector3 &a, const raytracer::Vector3 &b) {
+bool operator==(const photon::Vector3 &a, const photon::Vector3 &b) {
   return (a.X() == b.X()) && (a.Y() == b.Y()) && (a.Z() == b.Z());
 }
 
-std::ostream &operator<<(std::ostream &out, const raytracer::Vector3 &a) {
+std::ostream &operator<<(std::ostream &out, const photon::Vector3 &a) {
   return out << "Vector3(" << a.X() << ", " << a.Y() << ", " << a.Z() << ")";
 }
 
@@ -88,4 +88,4 @@ Vector3 operator^(const Vector3 &a, const Vector3 &b) {
   return Vector3(a.Y() * b.Z() - a.Z() * b.Y(), a.Z() * b.X() - a.X() * b.Z(),
                  a.X() * b.Y() - a.Y() * b.X());
 }
-} // namespace raytracer
+} // namespace photon

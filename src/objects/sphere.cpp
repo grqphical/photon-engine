@@ -1,8 +1,8 @@
-#include "raytracer/objects/sphere.hpp"
-#include "raytracer/ray.hpp"
-#include "raytracer/vector3.hpp"
+#include "photon/objects/sphere.hpp"
+#include "photon/ray.hpp"
+#include "photon/vector3.hpp"
 
-namespace raytracer::objects {
+namespace photon::objects {
 
 Sphere::Sphere(Vector3 center, double radius, Vector3 colour)
     : center(center), colour(colour), radius(radius) {}
@@ -22,4 +22,4 @@ Vector3 Sphere::GetSurfaceColour() const {
   return colour;
 }
 
-} // namespace raytracer::objects
+} // namespace photon::objects

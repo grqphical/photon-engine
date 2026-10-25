@@ -1,15 +1,15 @@
-#include "raytracer/image_writer/ppm_writer.hpp"
-#include "raytracer/image.hpp"
+#include "photon/image_writer/ppm_writer.hpp"
+#include "photon/image.hpp"
 
 #include <fstream>
 #include <iostream>
 
-raytracer::image_writer::PPMWriter::PPMWriter() {}
+photon::image_writer::PPMWriter::PPMWriter() {}
 
-raytracer::image_writer::PPMWriter::~PPMWriter() {}
+photon::image_writer::PPMWriter::~PPMWriter() {}
 
-void raytracer::image_writer::PPMWriter::SaveImage(raytracer::Image &image_data,
-                                                   std::string output_file) {
+void photon::image_writer::PPMWriter::SaveImage(photon::Image &image_data,
+                                                std::string output_file) {
   std::ofstream output(output_file);
 
   output << "P3\n"

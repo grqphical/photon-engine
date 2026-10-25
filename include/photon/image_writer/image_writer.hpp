@@ -1,14 +1,14 @@
 #pragma once
-#include "raytracer/image.hpp"
+#include "photon/image.hpp"
 #include <cstdint>
 #include <string>
 
-namespace raytracer::image_writer {
+namespace photon::image_writer {
 
 // A base class to save images in a variety of formats
 class ImageWriter {
 public:
   // Writes a vector of image data to the given output_file
-  virtual void SaveImage(raytracer::Image &image, std::string output_file) = 0;
+  virtual void SaveImage(photon::Image &image, std::string output_file) = 0;
 };
-} // namespace raytracer::image_writer
+} // namespace photon::image_writer

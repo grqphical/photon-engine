@@ -1,16 +1,16 @@
-#include "raytracer/renderer.hpp"
-#include "raytracer/camera.hpp"
-#include "raytracer/image_writer/ppm_writer.hpp"
-#include "raytracer/objects/object.hpp"
-#include "raytracer/ray.hpp"
-#include "raytracer/vector3.hpp"
+#include "photon/renderer.hpp"
+#include "photon/camera.hpp"
+#include "photon/image_writer/ppm_writer.hpp"
+#include "photon/objects/object.hpp"
+#include "photon/ray.hpp"
+#include "photon/vector3.hpp"
 
 #include <chrono>
 #include <iostream>
 #include <memory>
 
-namespace raytracer {
-using raytracer::objects::Object;
+namespace photon {
+using photon::objects::Object;
 
 Renderer::Renderer(double aspectRatio, int outputImageWidth)
     : aspectRatio(aspectRatio) {
@@ -65,8 +65,8 @@ void Renderer::RenderToFile(std::string filePath) {
   std::cout << "\nDone in " << msInt << "\n";
 }
 
-void Renderer::AddObject(std::unique_ptr<raytracer::objects::Object> obj) {
+void Renderer::AddObject(std::unique_ptr<photon::objects::Object> obj) {
   objects.push_back(std::move(obj));
 }
 
-} // namespace raytracer
+} // namespace photon

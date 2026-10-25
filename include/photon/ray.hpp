@@ -1,7 +1,7 @@
 #pragma once
 
-#include "raytracer/vector3.hpp"
-namespace raytracer {
+#include "photon/vector3.hpp"
+namespace photon {
 class Ray {
 public:
   Ray();
@@ -15,4 +15,4 @@ public:
 private:
   Vector3 origin, direction;
 };
-} // namespace raytracer
+} // namespace photon
