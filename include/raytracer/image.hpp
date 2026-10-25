@@ -11,6 +11,7 @@ class Image {
   using const_iterator = std::vector<uint32_t>::const_iterator;
 
 public:
+  inline Image() {};
   Image(uint32_t width, uint32_t height);
   ~Image();
 

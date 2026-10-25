@@ -29,6 +29,8 @@ add_library(libraytracer
     src/image.cpp
     src/vector3.cpp
     src/ray.cpp
+    src/renderer.cpp
+    src/camera.cpp
     src/image_writer/ppm_writer.cpp
 )
 
