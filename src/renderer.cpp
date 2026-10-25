@@ -1,13 +1,16 @@
 #include "raytracer/renderer.hpp"
 #include "raytracer/camera.hpp"
 #include "raytracer/image_writer/ppm_writer.hpp"
+#include "raytracer/objects/object.hpp"
 #include "raytracer/ray.hpp"
 #include "raytracer/vector3.hpp"
 
 #include <chrono>
 #include <iostream>
+#include <memory>
 
 namespace raytracer {
+using raytracer::objects::Object;
 
 Renderer::Renderer(double aspectRatio, int outputImageWidth)
     : aspectRatio(aspectRatio) {
@@ -43,6 +46,12 @@ void Renderer::RenderToFile(std::string filePath) {
       Ray r(camera.Position(), raydirection);
 
       Vector3 pixelColour = GetRayColour(r);
+      for (const auto &obj : objects) {
+        if (obj->RayHit(r)) {
+          pixelColour = obj->GetSurfaceColour();
+        }
+      }
+
       output.SetPixel(x, y, pixelColour);
     }
     std::cout << "\rScanlines Rendered: (" << y + 1 << "/" << output.Height()
@@ -55,4 +64,9 @@ void Renderer::RenderToFile(std::string filePath) {
   writer.SaveImage(output, filePath);
   std::cout << "\nDone in " << msInt << "\n";
 }
+
+void Renderer::AddObject(std::unique_ptr<raytracer::objects::Object> obj) {
+  objects.push_back(std::move(obj));
+}
+
 } // namespace raytracer

@@ -32,6 +32,7 @@ add_library(libraytracer
     src/renderer.cpp
     src/camera.cpp
     src/image_writer/ppm_writer.cpp
+    src/objects/sphere.cpp
 )
 
 target_include_directories(libraytracer PUBLIC
