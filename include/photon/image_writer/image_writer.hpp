@@ -5,10 +5,17 @@
 
 namespace photon::image_writer {
 
-// A base class to save images in a variety of formats
+/**
+ * @brief A base class to save images in a variety of formats
+ */
 class ImageWriter {
 public:
-  // Writes a vector of image data to the given output_file
+  /**
+   * @brief Writes an image to the given output file
+   *
+   * @param image The image to save
+   * @param output_file The path of the file to write to
+   */
   virtual void SaveImage(photon::Image &image, std::string output_file) = 0;
 };
 } // namespace photon::image_writer
