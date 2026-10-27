@@ -2,6 +2,7 @@
 #include "photon/camera.hpp"
 #include "photon/image_writer/ppm_writer.hpp"
 #include "photon/objects/object.hpp"
+#include "photon/photon.hpp"
 #include "photon/ray.hpp"
 #include "photon/vector3.hpp"
 
@@ -22,13 +23,8 @@ Renderer::Renderer(double aspectRatio, int outputImageWidth)
   output = Image(outputImageWidth, outputImageHeight);
 }
 
-Vector3 Renderer::GetRayColour(const Ray &r) const {
-  Vector3 unitDirection = r.Direction().Unit();
-  auto a = 0.5 * (unitDirection.Y() + 1.0);
-  return (1.0 - a) * Vector3(1.0, 1.0, 1.0) + a * Vector3(0.5, 0.7, 1.0);
-}
-
-void Renderer::RenderToFile(std::string filePath) {
+void Renderer::RenderToFile(std::string filePath,
+                            const RendererParams &params) {
   using std::chrono::duration;
   using std::chrono::duration_cast;
   using std::chrono::high_resolution_clock;
@@ -45,13 +41,7 @@ void Renderer::RenderToFile(std::string filePath) {
 
       Ray r(camera.Position(), raydirection);
 
-      Vector3 pixelColour = GetRayColour(r);
-      for (const auto &obj : objects) {
-        if (obj->RayHit(r)) {
-          pixelColour = obj->GetSurfaceColour();
-        }
-      }
-
+      Vector3 pixelColour = DetermineRayColour(r, scene, params);
       output.SetPixel(x, y, pixelColour);
     }
     std::cout << "\rScanlines Rendered: (" << y + 1 << "/" << output.Height()
@@ -65,8 +55,22 @@ void Renderer::RenderToFile(std::string filePath) {
   std::cout << "\nDone in " << msInt << "\n";
 }
 
-void Renderer::AddObject(std::unique_ptr<photon::objects::Object> obj) {
-  objects.push_back(std::move(obj));
+void Renderer::AddObject(std::shared_ptr<photon::objects::Object> obj) {
+  scene.AddObject(obj);
+}
+
+Vector3 Renderer::DetermineRayColour(const Ray &r, const Scene &scene,
+                                     const RendererParams &params) {
+  photon::RayHit hit;
+  if (scene.RayHit(r, 0, photon::INFINITY, hit)) {
+    if (params.renderNormals)
+      return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
+    return hit.colour;
+  }
+
+  Vector3 unitDirection = r.Direction().Unit();
+  auto a = 0.5 * (unitDirection.Y() + 1.0);
+  return (1.0 - a) * Vector3(1.0, 1.0, 1.0) + a * Vector3(0.5, 0.7, 1.0);
 }
 
 } // namespace photon
