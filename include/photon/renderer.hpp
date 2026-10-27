@@ -3,6 +3,7 @@
 #include "photon/camera.hpp"
 #include "photon/image.hpp"
 #include "photon/objects/object.hpp"
+#include "photon/scene.hpp"
 #include <memory>
 namespace photon {
 
@@ -11,13 +12,15 @@ public:
   Renderer(double aspectRatio, int outputImageWidth);
 
   void RenderToFile(std::string filePath);
-  void AddObject(std::unique_ptr<photon::objects::Object> obj);
+  void AddObject(std::shared_ptr<photon::objects::Object> obj);
 
 private:
   double aspectRatio;
   Image output;
   Camera camera;
-  std::vector<std::unique_ptr<photon::objects::Object>> objects;
+  Scene scene;
+
+  Vector3 DetermineRayColour(const Ray &R, const Scene &scene);
 };
 
 } // namespace photon

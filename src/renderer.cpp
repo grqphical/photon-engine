@@ -2,6 +2,7 @@
 #include "photon/camera.hpp"
 #include "photon/image_writer/ppm_writer.hpp"
 #include "photon/objects/object.hpp"
+#include "photon/photon.hpp"
 #include "photon/ray.hpp"
 #include "photon/vector3.hpp"
 
@@ -39,11 +40,7 @@ void Renderer::RenderToFile(std::string filePath) {
 
       Ray r(camera.Position(), raydirection);
 
-      Vector3 pixelColour;
-      for (const auto &obj : objects) {
-        pixelColour = obj->RayHit(r);
-      }
-
+      Vector3 pixelColour = DetermineRayColour(r, scene);
       output.SetPixel(x, y, pixelColour);
     }
     std::cout << "\rScanlines Rendered: (" << y + 1 << "/" << output.Height()
@@ -57,8 +54,19 @@ void Renderer::RenderToFile(std::string filePath) {
   std::cout << "\nDone in " << msInt << "\n";
 }
 
-void Renderer::AddObject(std::unique_ptr<photon::objects::Object> obj) {
-  objects.push_back(std::move(obj));
+void Renderer::AddObject(std::shared_ptr<photon::objects::Object> obj) {
+  scene.AddObject(obj);
+}
+
+Vector3 Renderer::DetermineRayColour(const Ray &r, const Scene &scene) {
+  photon::RayHit hit;
+  if (scene.RayHit(r, 0, photon::INFINITY, hit)) {
+    return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
+  }
+
+  Vector3 unitDirection = r.Direction().Unit();
+  auto a = 0.5 * (unitDirection.Y() + 1.0);
+  return (1.0 - a) * Vector3(1.0, 1.0, 1.0) + a * Vector3(0.5, 0.7, 1.0);
 }
 
 } // namespace photon
