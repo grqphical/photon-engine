@@ -31,6 +31,7 @@ add_library(libphoton
     src/ray.cpp
     src/renderer.cpp
     src/camera.cpp
+    src/scene.cpp
     src/image_writer/ppm_writer.cpp
     src/objects/sphere.cpp
 )
