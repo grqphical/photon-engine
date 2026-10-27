@@ -10,6 +10,6 @@ const Vector3 &Ray::Origin() const { return origin; }
 
 const Vector3 &Ray::Direction() const { return direction; }
 
-Vector3 Ray::At(double t) { return origin + t * direction; }
+Vector3 Ray::At(double t) const { return origin + t * direction; }
 
 } // namespace photon

@@ -3,7 +3,6 @@
 #include "photon/camera.hpp"
 #include "photon/image.hpp"
 #include "photon/objects/object.hpp"
-#include "photon/ray.hpp"
 #include <memory>
 namespace photon {
 
@@ -19,8 +18,6 @@ private:
   Image output;
   Camera camera;
   std::vector<std::unique_ptr<photon::objects::Object>> objects;
-
-  Vector3 GetRayColour(const Ray &ray) const;
 };
 
 } // namespace photon

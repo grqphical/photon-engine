@@ -22,12 +22,6 @@ Renderer::Renderer(double aspectRatio, int outputImageWidth)
   output = Image(outputImageWidth, outputImageHeight);
 }
 
-Vector3 Renderer::GetRayColour(const Ray &r) const {
-  Vector3 unitDirection = r.Direction().Unit();
-  auto a = 0.5 * (unitDirection.Y() + 1.0);
-  return (1.0 - a) * Vector3(1.0, 1.0, 1.0) + a * Vector3(0.5, 0.7, 1.0);
-}
-
 void Renderer::RenderToFile(std::string filePath) {
   using std::chrono::duration;
   using std::chrono::duration_cast;
@@ -45,11 +39,9 @@ void Renderer::RenderToFile(std::string filePath) {
 
       Ray r(camera.Position(), raydirection);
 
-      Vector3 pixelColour = GetRayColour(r);
+      Vector3 pixelColour;
       for (const auto &obj : objects) {
-        if (obj->RayHit(r)) {
-          pixelColour = obj->GetSurfaceColour();
-        }
+        pixelColour = obj->RayHit(r);
       }
 
       output.SetPixel(x, y, pixelColour);
