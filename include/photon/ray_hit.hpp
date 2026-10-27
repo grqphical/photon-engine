@@ -8,6 +8,7 @@ class RayHit {
 public:
   Vector3 point;
   Vector3 normal;
+  Vector3 colour;
   double t;
   bool front_face;
 

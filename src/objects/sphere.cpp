@@ -32,6 +32,7 @@ bool Sphere::RayHit(const Ray &r, double ray_min, double ray_max,
   result.point = r.At(result.t);
   Vector3 outwardNormal = (result.point - center) / radius;
   result.SetFaceNormal(r, outwardNormal);
+  result.colour = colour;
 
   return true;
 }

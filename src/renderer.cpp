@@ -23,7 +23,8 @@ Renderer::Renderer(double aspectRatio, int outputImageWidth)
   output = Image(outputImageWidth, outputImageHeight);
 }
 
-void Renderer::RenderToFile(std::string filePath) {
+void Renderer::RenderToFile(std::string filePath,
+                            const RendererParams &params) {
   using std::chrono::duration;
   using std::chrono::duration_cast;
   using std::chrono::high_resolution_clock;
@@ -40,7 +41,7 @@ void Renderer::RenderToFile(std::string filePath) {
 
       Ray r(camera.Position(), raydirection);
 
-      Vector3 pixelColour = DetermineRayColour(r, scene);
+      Vector3 pixelColour = DetermineRayColour(r, scene, params);
       output.SetPixel(x, y, pixelColour);
     }
     std::cout << "\rScanlines Rendered: (" << y + 1 << "/" << output.Height()
@@ -58,10 +59,13 @@ void Renderer::AddObject(std::shared_ptr<photon::objects::Object> obj) {
   scene.AddObject(obj);
 }
 
-Vector3 Renderer::DetermineRayColour(const Ray &r, const Scene &scene) {
+Vector3 Renderer::DetermineRayColour(const Ray &r, const Scene &scene,
+                                     const RendererParams &params) {
   photon::RayHit hit;
   if (scene.RayHit(r, 0, photon::INFINITY, hit)) {
-    return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
+    if (params.renderNormals)
+      return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
+    return hit.colour;
   }
 
   Vector3 unitDirection = r.Direction().Unit();
