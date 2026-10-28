@@ -4,5 +4,5 @@
 
 namespace photon {
 /// A convenient alias for positive floating point infinity
-const double INFINITY = std::numeric_limits<double>::infinity();
-}
+const double infinity = std::numeric_limits<double>::infinity();
+} // namespace photon

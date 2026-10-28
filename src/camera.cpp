@@ -1,4 +1,5 @@
 #include "photon/camera.hpp"
+#include "photon/interval.hpp"
 #include "photon/photon.hpp"
 #include "photon/renderer_params.hpp"
 #include "photon/vector3.hpp"
@@ -33,7 +34,7 @@ Vector3 Camera::RayColour(const Ray &r, const Scene &scene,
 
   RayHit hit;
 
-  if (scene.RayHit(r, 0, photon::INFINITY, hit)) {
+  if (scene.RayHit(r, Interval(0, infinity), hit)) {
     if (params.renderNormals) {
       return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
     }
