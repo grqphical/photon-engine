@@ -41,7 +41,7 @@ void Renderer::RenderToFile(std::string filePath,
 
       Ray r(camera.Position(), raydirection);
 
-      Vector3 pixelColour = DetermineRayColour(r, scene, params);
+      Vector3 pixelColour = camera.RayColour(r, scene, params);
       output.SetPixel(x, y, pixelColour);
     }
     std::cout << "\rScanlines Rendered: (" << y + 1 << "/" << output.Height()
@@ -57,20 +57,6 @@ void Renderer::RenderToFile(std::string filePath,
 
 void Renderer::AddObject(std::shared_ptr<photon::objects::Object> obj) {
   scene.AddObject(obj);
-}
-
-Vector3 Renderer::DetermineRayColour(const Ray &r, const Scene &scene,
-                                     const RendererParams &params) {
-  photon::RayHit hit;
-  if (scene.RayHit(r, 0, photon::INFINITY, hit)) {
-    if (params.renderNormals)
-      return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
-    return hit.colour;
-  }
-
-  Vector3 unitDirection = r.Direction().Unit();
-  auto a = 0.5 * (unitDirection.Y() + 1.0);
-  return (1.0 - a) * Vector3(1.0, 1.0, 1.0) + a * Vector3(0.5, 0.7, 1.0);
 }
 
 } // namespace photon

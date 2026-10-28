@@ -41,18 +41,6 @@ private:
   Image output;
   Camera camera;
   Scene scene;
-
-  /**
-   * @brief Computes the colour of the pixel seen along a ray
-   *
-   * @param R The ray to trace
-   * @param scene The scene to trace the ray against
-   * @param params Parameters controlling how the scene is rendered
-   *
-   * @return The colour of the pixel as a vector with components in [0, 1]
-   */
-  Vector3 DetermineRayColour(const Ray &R, const Scene &scene,
-                             const photon::RendererParams &params);
 };
 
 } // namespace photon

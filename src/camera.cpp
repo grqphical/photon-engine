@@ -1,4 +1,6 @@
 #include "photon/camera.hpp"
+#include "photon/photon.hpp"
+#include "photon/renderer_params.hpp"
 #include "photon/vector3.hpp"
 
 namespace photon {
@@ -26,4 +28,21 @@ const Vector3 &Camera::TopLeftPixel() const { return pixel00Location; }
 const Vector3 &Camera::PixelDeltaU() const { return pixelDeltaU; }
 const Vector3 &Camera::PixelDeltaV() const { return pixelDeltaV; }
 
+Vector3 Camera::RayColour(const Ray &r, const Scene &scene,
+                          const RendererParams &params) {
+
+  RayHit hit;
+
+  if (scene.RayHit(r, 0, photon::INFINITY, hit)) {
+    if (params.renderNormals) {
+      return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
+    }
+
+    return hit.colour;
+  }
+
+  Vector3 unitDirection = r.Direction().Unit();
+  double a = 0.5 * (unitDirection.Y() + 1.0);
+  return (1.0 - a) * Vector3(1.0, 1.0, 1.0) + a * Vector3(0.5, 0.7, 1.0);
+}
 } // namespace photon

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "photon/renderer_params.hpp"
+#include "photon/scene.hpp"
 #include "photon/vector3.hpp"
 namespace photon {
 
@@ -42,6 +44,18 @@ public:
    * @brief Returns the vertical pixel delta vector between rays
    */
   const Vector3 &PixelDeltaV() const;
+
+  /**
+   * @brief Computes the colour of the pixel seen along a ray
+   *
+   * @param R The ray to trace
+   * @param scene The scene to trace the ray against
+   * @param params Parameters controlling how the scene is rendered
+   *
+   * @return The colour of the pixel as a vector with components in [0, 1]
+   */
+  Vector3 RayColour(const Ray &r, const Scene &scene,
+                    const RendererParams &params);
 
 private:
   double viewportHeight, viewportWidth;
