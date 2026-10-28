@@ -14,4 +14,12 @@ bool Interval::Contains(double x) const { return min <= x && x <= max; }
 
 bool Interval::Surrounds(double x) const { return min < x && x < max; }
 
+double Interval::Clamp(double x) const {
+  if (x < min)
+    return min;
+  if (x > max)
+    return max;
+  return x;
+}
+
 } // namespace photon

@@ -31,6 +31,9 @@ public:
   /// (i.e. (min, max))
   bool Surrounds(double x) const;
 
+  /// @brief Clamps the given number to be within the interval
+  double Clamp(double x) const;
+
   static const Interval empty, universe;
 
 private:
