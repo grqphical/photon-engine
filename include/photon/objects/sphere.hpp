@@ -1,5 +1,6 @@
 #pragma once
 
+#include "photon/interval.hpp"
 #include "photon/objects/object.hpp"
 #include "photon/ray.hpp"
 #include "photon/vector3.hpp"
@@ -29,7 +30,7 @@ public:
    *
    * @return true if the ray intersects the sphere within the given range
    */
-  bool RayHit(const Ray &r, double ray_min, double ray_max,
+  bool RayHit(const Ray &r, photon::Interval rayRange,
               photon::RayHit &result) const;
 
 private:

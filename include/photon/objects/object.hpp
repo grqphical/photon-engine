@@ -22,7 +22,7 @@ public:
    *
    * @return true if the ray intersects the object within the given range
    */
-  virtual bool RayHit(const Ray &r, double ray_min, double ray_max,
+  virtual bool RayHit(const Ray &r, photon::Interval rayRange,
                       photon::RayHit &result) const = 0;
 };
 } // namespace photon::objects

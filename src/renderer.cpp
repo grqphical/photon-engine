@@ -30,19 +30,21 @@ void Renderer::RenderToFile(std::string filePath,
   using std::chrono::high_resolution_clock;
   using std::chrono::milliseconds;
 
+  double sampleScale = 1.0 / params.samplesPerPixel;
+
   std::cout << "Rendering scene...\n";
   auto start = high_resolution_clock::now();
 
   for (uint32_t y = 0; y < output.Height(); y++) {
     for (uint32_t x = 0; x < output.Width(); x++) {
-      Vector3 pixelCenter = camera.TopLeftPixel() + (x * camera.PixelDeltaU()) +
-                            (y * camera.PixelDeltaV());
-      Vector3 raydirection = pixelCenter - camera.Position();
+      Vector3 pixelColour(0, 0, 0);
 
-      Ray r(camera.Position(), raydirection);
+      for (int i = 0; i < params.samplesPerPixel; i++) {
+        Ray r = GetRay(x, y);
+        pixelColour += camera.RayColour(r, scene, params);
+      }
 
-      Vector3 pixelColour = camera.RayColour(r, scene, params);
-      output.SetPixel(x, y, pixelColour);
+      output.SetPixel(x, y, pixelColour * sampleScale);
     }
     std::cout << "\rScanlines Rendered: (" << y + 1 << "/" << output.Height()
               << ")" << std::flush;
@@ -57,6 +59,20 @@ void Renderer::RenderToFile(std::string filePath,
 
 void Renderer::AddObject(std::shared_ptr<photon::objects::Object> obj) {
   scene.AddObject(obj);
+}
+
+Ray Renderer::GetRay(int x, int y) const {
+  Vector3 offset = SampleSquare();
+  Vector3 pixelCenter = camera.TopLeftPixel() +
+                        ((x + offset.X()) * camera.PixelDeltaU()) +
+                        ((y + offset.Y()) * camera.PixelDeltaV());
+
+  Vector3 raydirection = pixelCenter - camera.Position();
+  return Ray(camera.Position(), raydirection);
+}
+
+Vector3 Renderer::SampleSquare() const {
+  return Vector3(RandomDouble() - 0.5, RandomDouble() - 0.5, 0);
 }
 
 } // namespace photon
