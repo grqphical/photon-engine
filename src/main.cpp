@@ -4,7 +4,7 @@
 #include "photon/renderer_params.hpp"
 #include "photon/vector3.hpp"
 int main() {
-  photon::Renderer renderer = photon::Renderer(16.0 / 9.0, 800);
+  photon::Renderer renderer = photon::Renderer(16.0 / 9.0, 1600);
 
   renderer.AddObject(std::make_shared<photon::objects::Sphere>(
       photon::Vector3(0, 0, -1), 0.5, photon::Vector3(1.0, 0.0, 0.0)));

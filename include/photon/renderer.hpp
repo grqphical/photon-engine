@@ -3,8 +3,10 @@
 #include "photon/camera.hpp"
 #include "photon/image.hpp"
 #include "photon/objects/object.hpp"
+#include "photon/ray.hpp"
 #include "photon/renderer_params.hpp"
 #include "photon/scene.hpp"
+#include "photon/vector3.hpp"
 #include <memory>
 namespace photon {
 
@@ -41,6 +43,12 @@ private:
   Image output;
   Camera camera;
   Scene scene;
+
+  /// Gets a ray casting at the given pixel
+  Ray GetRay(int x, int y) const;
+
+  /// Returns a random point within a +/- 0.5 unit square
+  Vector3 SampleSquare() const;
 };
 
 } // namespace photon

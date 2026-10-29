@@ -1,4 +1,5 @@
 #include "photon/image.hpp"
+#include "photon/interval.hpp"
 #include <stdexcept>
 
 photon::Image::Image(uint32_t width, uint32_t height)
@@ -24,10 +25,12 @@ void photon::Image::SetPixel(uint32_t x, uint32_t y, photon::Vector3 colour) {
     throw std::invalid_argument("x and y must be smaller than the image");
 
   uint64_t idx = static_cast<uint64_t>(y) * width_ + x;
+
+  static const Interval intensity(0.000, 0.999);
   const uint32_t colour_packed =
-      (static_cast<uint32_t>(colour.X() * 255) << 24) |
-      (static_cast<uint32_t>(colour.Y() * 255) << 16) |
-      (static_cast<uint32_t>(colour.Z() * 255) << 8);
+      (static_cast<uint32_t>(intensity.Clamp(colour.X()) * 255) << 24) |
+      (static_cast<uint32_t>(intensity.Clamp(colour.Y()) * 255) << 16) |
+      (static_cast<uint32_t>(intensity.Clamp(colour.Z()) * 255) << 8);
 
   data_[idx] = colour_packed;
 }

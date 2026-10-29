@@ -8,6 +8,9 @@ namespace photon {
 struct RendererParams {
   /// When true, surfaces are shaded by their normal instead of their colour
   bool renderNormals;
+
+  /// How many samples per pixel should be taken for anti-aliasing
+  int samplesPerPixel = 10;
 };
 
 } // namespace photon
