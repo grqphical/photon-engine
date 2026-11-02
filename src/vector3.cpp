@@ -1,4 +1,5 @@
 #include "photon/vector3.hpp"
+#include "photon/photon.hpp"
 #include <cmath>
 
 namespace photon {
@@ -6,6 +7,14 @@ namespace photon {
 Vector3::Vector3() : x(0.0), y(0.0), z(0.0) {}
 
 Vector3::Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
+
+Vector3 Vector3::Random() {
+  return Vector3(RandomDouble(), RandomDouble(), RandomDouble());
+}
+
+Vector3 Vector3::Random(double min, double max) {
+  return Vector3(RandomDouble(min, max), RandomDouble(min, max), RandomDouble(min, max));
+}
 
 bool operator==(const photon::Vector3 &a, const photon::Vector3 &b) {
   return (a.X() == b.X()) && (a.Y() == b.Y()) && (a.Z() == b.Z());
