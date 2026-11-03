@@ -87,6 +87,15 @@ double Vector3::Length() const { return std::sqrt(this->LengthSquared()); }
 
 Vector3 Vector3::Unit() const { return *this / this->Length(); }
 
+Vector3 Vector3::RandomUnit() const {
+  while (true) {
+    auto p = Vector3::Random(-1, 1);
+    auto lengthSquared = p.LengthSquared();
+    if (lengthSquared <= 1)
+      return p / std::sqrt(lengthSquared);
+  }
+}
+
 double operator&(const Vector3 &a, const Vector3 &b) {
   // dot product
   return (a.X() * b.X()) + (a.Y() * b.Y()) + (a.Z() * b.Z());
@@ -97,4 +106,6 @@ Vector3 operator^(const Vector3 &a, const Vector3 &b) {
   return Vector3(a.Y() * b.Z() - a.Z() * b.Y(), a.Z() * b.X() - a.X() * b.Z(),
                  a.X() * b.Y() - a.Y() * b.X());
 }
+  
+
 } // namespace photon

@@ -56,6 +56,8 @@ public:
   /// Returns a unit-length copy of this vector
   Vector3 Unit() const;
 
+  Vector3 RandomUnit() const;
+
 private:
   double x, y, z;
 };
