@@ -19,6 +19,17 @@ public:
    */
   Vector3(double x, double y, double z);
 
+  /// Generates a Vector3 of random values between 0.0 and 1.0
+  static Vector3 Random();
+
+  /**
+   * @brief Generates a random Vector3
+   *
+   * @param min The minimum value
+   * @param max The maximum value
+   */
+  static Vector3 Random(double min, double max);
+
   /// Returns the x component
   double X() const;
   /// Returns the y component
@@ -44,6 +55,10 @@ public:
 
   /// Returns a unit-length copy of this vector
   Vector3 Unit() const;
+
+  static Vector3 RandomUnit();
+
+  static Vector3 RandomOnHemisphere(const Vector3& normal);
 
 private:
   double x, y, z;

@@ -51,4 +51,17 @@ private:
   Vector3 SampleSquare() const;
 };
 
+/**
+ * @brief Gamma corrects a component of a colour
+ *
+ * @param linearComponent The colour component to gamma correct
+ * @returns The gamma corrected colour component
+ */
+inline double LinearToGamma(double linearComponent) {
+  if (linearComponent > 0)
+    return std::sqrt(linearComponent);
+
+  return 0;
+}
+
 } // namespace photon

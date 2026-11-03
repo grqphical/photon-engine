@@ -41,10 +41,15 @@ void Renderer::RenderToFile(std::string filePath,
 
       for (int i = 0; i < params.samplesPerPixel; i++) {
         Ray r = GetRay(x, y);
-        pixelColour += camera.RayColour(r, scene, params);
+        pixelColour += camera.RayColour(r, scene, params, params.maxBounces);
       }
 
-      output.SetPixel(x, y, pixelColour * sampleScale);
+      pixelColour = pixelColour * sampleScale;
+
+      // Gamma correct pixel colours
+      pixelColour = Vector3(LinearToGamma(pixelColour.X()), LinearToGamma(pixelColour.Y()), LinearToGamma(pixelColour.Z()));
+
+      output.SetPixel(x, y, pixelColour);
     }
     std::cout << "\rScanlines Rendered: (" << y + 1 << "/" << output.Height()
               << ")" << std::flush;

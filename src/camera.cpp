@@ -30,16 +30,19 @@ const Vector3 &Camera::PixelDeltaU() const { return pixelDeltaU; }
 const Vector3 &Camera::PixelDeltaV() const { return pixelDeltaV; }
 
 Vector3 Camera::RayColour(const Ray &r, const Scene &scene,
-                          const RendererParams &params) {
+                          const RendererParams &params, int depth) {
+  if (depth <= 0)
+    return Vector3(0.0, 0.0, 0.0);
 
   RayHit hit;
 
-  if (scene.RayHit(r, Interval(0, infinity), hit)) {
+  if (scene.RayHit(r, Interval(0.001, infinity), hit)) {
     if (params.renderNormals) {
       return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
     }
 
-    return hit.colour;
+    Vector3 direction = hit.normal + Vector3::RandomOnHemisphere(hit.normal);
+    return 0.5 * RayColour(Ray(hit.point, direction), scene, params, depth - 1);
   }
 
   Vector3 unitDirection = r.Direction().Unit();
