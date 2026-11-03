@@ -36,7 +36,7 @@ Vector3 Camera::RayColour(const Ray &r, const Scene &scene,
 
   RayHit hit;
 
-  if (scene.RayHit(r, Interval(0, infinity), hit)) {
+  if (scene.RayHit(r, Interval(0.001, infinity), hit)) {
     if (params.renderNormals) {
       return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
     }
