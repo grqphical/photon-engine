@@ -13,7 +13,8 @@ Vector3 Vector3::Random() {
 }
 
 Vector3 Vector3::Random(double min, double max) {
-  return Vector3(RandomDouble(min, max), RandomDouble(min, max), RandomDouble(min, max));
+  return Vector3(RandomDouble(min, max), RandomDouble(min, max),
+                 RandomDouble(min, max));
 }
 
 bool operator==(const photon::Vector3 &a, const photon::Vector3 &b) {
@@ -87,23 +88,24 @@ double Vector3::Length() const { return std::sqrt(this->LengthSquared()); }
 
 Vector3 Vector3::Unit() const { return *this / this->Length(); }
 
-Vector3 Vector3::RandomUnit() const {
+Vector3 Vector3::RandomUnit(){
   while (true) {
     auto p = Vector3::Random(-1, 1);
     auto lengthSquared = p.LengthSquared();
-    // make sure to not have a zero length vector. 64 bit doubles can support 10^-160
+    // make sure to not have a zero length vector. 64 bit doubles can support
+    // 10^-160
     if (1e-160 < lengthSquared && lengthSquared <= 1)
       return p / std::sqrt(lengthSquared);
   }
 }
 
-Vector3 Vector3::RandomOnHemisphere(const Vector3& normal) const {
+Vector3 Vector3::RandomOnHemisphere(const Vector3 &normal) {
   Vector3 onUnitSphere = RandomUnit();
   // dot product
   if ((onUnitSphere & normal) > 0.0)
     return onUnitSphere;
   else
-  return -onUnitSphere;
+    return -onUnitSphere;
 }
 
 double operator&(const Vector3 &a, const Vector3 &b) {
@@ -116,6 +118,5 @@ Vector3 operator^(const Vector3 &a, const Vector3 &b) {
   return Vector3(a.Y() * b.Z() - a.Z() * b.Y(), a.Z() * b.X() - a.X() * b.Z(),
                  a.X() * b.Y() - a.Y() * b.X());
 }
-  
 
 } // namespace photon

@@ -56,9 +56,9 @@ public:
   /// Returns a unit-length copy of this vector
   Vector3 Unit() const;
 
-  Vector3 RandomUnit() const;
+  static Vector3 RandomUnit();
 
-  Vector3 RandomOnHemisphere(const Vector3& normal) const;
+  static Vector3 RandomOnHemisphere(const Vector3& normal);
 
 private:
   double x, y, z;

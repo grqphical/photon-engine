@@ -11,7 +11,7 @@ int main() {
   renderer.AddObject(std::make_shared<photon::objects::Sphere>(
       photon::Vector3(0, -100.5, -1), 100, photon::Vector3(0.0, 1.0, 0.0)));
 
-  renderer.RenderToFile("render.ppm", photon::RendererParams(true));
+  renderer.RenderToFile("render.ppm", photon::RendererParams(false));
 
   return 0;
 }
