@@ -55,7 +55,7 @@ public:
    * @return The colour of the pixel as a vector with components in [0, 1]
    */
   Vector3 RayColour(const Ray &r, const Scene &scene,
-                    const RendererParams &params);
+                    const RendererParams &params, int depth);
 
 private:
   double viewportHeight, viewportWidth;

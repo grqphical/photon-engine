@@ -30,7 +30,9 @@ const Vector3 &Camera::PixelDeltaU() const { return pixelDeltaU; }
 const Vector3 &Camera::PixelDeltaV() const { return pixelDeltaV; }
 
 Vector3 Camera::RayColour(const Ray &r, const Scene &scene,
-                          const RendererParams &params) {
+                          const RendererParams &params, int depth) {
+  if (depth <= 0)
+    return Vector3(0.0, 0.0, 0.0);
 
   RayHit hit;
 
@@ -40,7 +42,7 @@ Vector3 Camera::RayColour(const Ray &r, const Scene &scene,
     }
 
     Vector3 direction = Vector3::RandomOnHemisphere(hit.normal);
-    return 0.5 * RayColour(Ray(hit.point, direction), scene, params);
+    return 0.5 * RayColour(Ray(hit.point, direction), scene, params, depth - 1);
   }
 
   Vector3 unitDirection = r.Direction().Unit();

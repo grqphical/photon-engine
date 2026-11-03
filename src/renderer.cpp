@@ -41,7 +41,7 @@ void Renderer::RenderToFile(std::string filePath,
 
       for (int i = 0; i < params.samplesPerPixel; i++) {
         Ray r = GetRay(x, y);
-        pixelColour += camera.RayColour(r, scene, params);
+        pixelColour += camera.RayColour(r, scene, params, params.maxBounces);
       }
 
       output.SetPixel(x, y, pixelColour * sampleScale);
