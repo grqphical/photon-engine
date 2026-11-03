@@ -41,7 +41,7 @@ Vector3 Camera::RayColour(const Ray &r, const Scene &scene,
       return 0.5 * (hit.normal + Vector3(1.0, 1.0, 1.0));
     }
 
-    Vector3 direction = Vector3::RandomOnHemisphere(hit.normal);
+    Vector3 direction = hit.normal + Vector3::RandomOnHemisphere(hit.normal);
     return 0.5 * RayColour(Ray(hit.point, direction), scene, params, depth - 1);
   }
 
