@@ -58,6 +58,8 @@ public:
 
   Vector3 RandomUnit() const;
 
+  Vector3 RandomOnHemisphere(const Vector3& normal) const;
+
 private:
   double x, y, z;
 };

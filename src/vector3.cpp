@@ -97,6 +97,15 @@ Vector3 Vector3::RandomUnit() const {
   }
 }
 
+Vector3 Vector3::RandomOnHemisphere(const Vector3& normal) const {
+  Vector3 onUnitSphere = RandomUnit();
+  // dot product
+  if ((onUnitSphere & normal) > 0.0)
+    return onUnitSphere;
+  else
+  return -onUnitSphere;
+}
+
 double operator&(const Vector3 &a, const Vector3 &b) {
   // dot product
   return (a.X() * b.X()) + (a.Y() * b.Y()) + (a.Z() * b.Z());
