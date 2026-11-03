@@ -91,7 +91,8 @@ Vector3 Vector3::RandomUnit() const {
   while (true) {
     auto p = Vector3::Random(-1, 1);
     auto lengthSquared = p.LengthSquared();
-    if (lengthSquared <= 1)
+    // make sure to not have a zero length vector. 64 bit doubles can support 10^-160
+    if (1e-160 < lengthSquared && lengthSquared <= 1)
       return p / std::sqrt(lengthSquared);
   }
 }
