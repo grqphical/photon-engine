@@ -22,4 +22,6 @@ double Interval::Clamp(double x) const {
   return x;
 }
 
+double Interval::Size() const { return max - min; }
+
 } // namespace photon

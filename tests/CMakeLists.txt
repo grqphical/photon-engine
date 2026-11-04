@@ -18,6 +18,10 @@ FetchContent_MakeAvailable(googletest)
 add_executable(unit_tests
     test_vector3.cpp
     test_ray.cpp
+    test_interval.cpp
+    test_ray_hit.cpp
+    test_image.cpp
+    test_sphere.cpp
 )
 
 target_link_libraries(unit_tests PRIVATE
