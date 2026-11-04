@@ -11,6 +11,10 @@ bool Lambertian::Scatter(const photon::Ray &rayIn,
                          photon::Vector3 &attentuation,
                          photon::Ray &scattered) const {
   auto scatterDirection = hitRecord.normal + Vector3::RandomUnit();
+
+  if (scatterDirection.NearZero())
+    scatterDirection = hitRecord.normal;
+
   scattered = Ray(hitRecord.point, scatterDirection);
   attentuation = albedo;
   return true;
