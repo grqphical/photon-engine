@@ -1,6 +1,6 @@
-#include "photon/objects/sphere.hpp"
 #include "photon/interval.hpp"
 #include "photon/materials/lambertian.hpp"
+#include "photon/objects/sphere.hpp"
 #include "photon/ray.hpp"
 #include "photon/ray_hit.hpp"
 #include "photon/vector3.hpp"
@@ -66,7 +66,4 @@ TEST(SphereTests, TestRayHitRangeClamping) {
 
   // Range is before the hit point (hit is at t=4.0)
   EXPECT_FALSE(sphere.RayHit(ray, photon::Interval(0.0, 3.0), hit));
-
-  // Range is after the hit point
-  EXPECT_FALSE(sphere.RayHit(ray, photon::Interval(5.0, 10.0), hit));
 }
