@@ -1,6 +1,7 @@
 #pragma once
 
 #include "photon/interval.hpp"
+#include "photon/materials/material.hpp"
 #include "photon/objects/object.hpp"
 #include "photon/ray.hpp"
 #include "photon/vector3.hpp"
@@ -18,7 +19,8 @@ public:
    * @param radius The radius of the sphere
    * @param colour The colour of the sphere
    */
-  Sphere(Vector3 center, double radius, Vector3 colour);
+  Sphere(Vector3 center, double radius,
+         std::shared_ptr<materials::Material> material);
 
   /**
    * @brief Tests whether a ray intersects this sphere
@@ -34,7 +36,8 @@ public:
               photon::RayHit &result) const;
 
 private:
-  Vector3 center, colour;
+  Vector3 center;
   double radius;
+  std::shared_ptr<materials::Material> material;
 };
 } // namespace photon::objects

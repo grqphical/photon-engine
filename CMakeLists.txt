@@ -33,8 +33,13 @@ add_library(libphoton
     src/camera.cpp
     src/scene.cpp
     src/interval.cpp
+
     src/image_writer/ppm_writer.cpp
+
     src/objects/sphere.cpp
+    
+    src/materials/lambertian.cpp
+    src/materials/metal.cpp
 )
 
 target_include_directories(libphoton PUBLIC

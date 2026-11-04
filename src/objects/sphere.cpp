@@ -1,13 +1,15 @@
 #include "photon/objects/sphere.hpp"
 #include "photon/interval.hpp"
+#include "photon/materials/material.hpp"
 #include "photon/ray.hpp"
 #include "photon/vector3.hpp"
 #include <cmath>
 
 namespace photon::objects {
 
-Sphere::Sphere(Vector3 center, double radius, Vector3 colour)
-    : center(center), colour(colour), radius(radius) {}
+Sphere::Sphere(Vector3 center, double radius,
+               std::shared_ptr<materials::Material> material)
+    : center(center), radius(radius), material(material) {}
 
 bool Sphere::RayHit(const Ray &r, photon::Interval rayRange,
                     photon::RayHit &result) const {
@@ -33,7 +35,7 @@ bool Sphere::RayHit(const Ray &r, photon::Interval rayRange,
   result.point = r.At(result.t);
   Vector3 outwardNormal = (result.point - center) / radius;
   result.SetFaceNormal(r, outwardNormal);
-  result.colour = colour;
+  result.material = material;
 
   return true;
 }
