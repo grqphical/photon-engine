@@ -39,6 +39,7 @@ add_library(libphoton
     src/objects/sphere.cpp
     
     src/materials/lambertian.cpp
+    src/materials/metal.cpp
 )
 
 target_include_directories(libphoton PUBLIC

@@ -22,6 +22,10 @@ bool Vector3::NearZero() const {
   return (std::fabs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s);
 }
 
+Vector3 Vector3::Reflect(const Vector3 &normal) const {
+  return *this - 2 * (*this & normal) * normal;
+}
+
 bool operator==(const photon::Vector3 &a, const photon::Vector3 &b) {
   return (a.X() == b.X()) && (a.Y() == b.Y()) && (a.Z() == b.Z());
 }
