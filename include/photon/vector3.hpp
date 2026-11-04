@@ -56,9 +56,12 @@ public:
   /// Returns a unit-length copy of this vector
   Vector3 Unit() const;
 
+  /// Checks if the vector is close to zero in every dimension
+  bool NearZero() const;
+
   static Vector3 RandomUnit();
 
-  static Vector3 RandomOnHemisphere(const Vector3& normal);
+  static Vector3 RandomOnHemisphere(const Vector3 &normal);
 
 private:
   double x, y, z;

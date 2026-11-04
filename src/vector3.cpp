@@ -17,6 +17,11 @@ Vector3 Vector3::Random(double min, double max) {
                  RandomDouble(min, max));
 }
 
+bool Vector3::NearZero() const {
+  auto s = 1e-8;
+  return (std::fabs(x) < s) && (std::fabs(y) < s) && (std::fabs(z) < s);
+}
+
 bool operator==(const photon::Vector3 &a, const photon::Vector3 &b) {
   return (a.X() == b.X()) && (a.Y() == b.Y()) && (a.Z() == b.Z());
 }
@@ -88,7 +93,7 @@ double Vector3::Length() const { return std::sqrt(this->LengthSquared()); }
 
 Vector3 Vector3::Unit() const { return *this / this->Length(); }
 
-Vector3 Vector3::RandomUnit(){
+Vector3 Vector3::RandomUnit() {
   while (true) {
     auto p = Vector3::Random(-1, 1);
     auto lengthSquared = p.LengthSquared();
