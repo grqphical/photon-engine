@@ -13,6 +13,6 @@ public:
   virtual bool Scatter(const photon::Ray &rayIn,
                        const photon::RayHit &hitRecord,
                        photon::Vector3 &attenuation,
-                       photon::Ray &scattered) const;
+                       photon::Ray &scattered) const = 0;
 };
 } // namespace photon::materials
