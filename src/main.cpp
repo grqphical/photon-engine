@@ -15,9 +15,9 @@ int main() {
   auto material_center = std::make_shared<photon::materials::Lambertian>(
       photon::Vector3(0.1, 0.2, 0.5));
   auto material_left = std::make_shared<photon::materials::Metal>(
-      photon::Vector3(0.8, 0.8, 0.8));
+      photon::Vector3(0.8, 0.8, 0.8), 0.3);
   auto material_right = std::make_shared<photon::materials::Metal>(
-      photon::Vector3(0.8, 0.6, 0.2));
+      photon::Vector3(0.8, 0.6, 0.2), 1.0);
 
   renderer.AddObject(std::make_shared<photon::objects::Sphere>(
       photon::Vector3(0, -100.5, -1), 100, material_ground));
